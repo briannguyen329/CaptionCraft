@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #8f109b;
+  --color-primary-dark: #440849;
+  --color-primary-light: #fae3fc;
+  --color-primary-bg: #fdf6fe;
+  --color-text-primary: #181d27;
+  --color-text-secondary: #6c5f6c;
+  --color-surface: #ffffff;
+
+  --font-heading: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text-primary);
+    background: linear-gradient(135deg, var(--color-primary-bg) 0%, #f8f0fa 50%, #f0e6f6 100%);
+    min-height: 100vh;
+    margin: 0;
+  }
+}
