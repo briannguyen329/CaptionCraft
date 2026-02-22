@@ -1,6 +1,6 @@
 # CaptionCraft — Build Plan
 
-> **Status**: In Progress — Phase 4 (Ship)
+> **Status**: Complete
 > **Time Budget**: ~8 hours (1 day)
 > **Last Updated**: 2026-02-19
 > **Concept**: Upload an image → choose a tone → Claude generates a tailored caption
@@ -60,7 +60,7 @@
   - Public Figma design link
   - "Built with Claude" badge
   - Local setup instructions
-- [ ] **4.6** Final commit with clean history
+- [x] **4.6** Final commit with clean history
 
 ---
 
