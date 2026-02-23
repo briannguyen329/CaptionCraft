@@ -1,3 +1,6 @@
+import Chip from '@mui/material/Chip'
+import Stack from '@mui/material/Stack'
+
 const TONES = [
   { id: 'casual', label: 'Casual', emoji: '😊' },
   { id: 'professional', label: 'Professional', emoji: '💼' },
@@ -8,22 +11,26 @@ const TONES = [
 
 export default function ToneSelector({ selected, onSelect }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
       {TONES.map((tone) => (
-        <button
+        <Chip
           key={tone.id}
+          label={`${tone.emoji} ${tone.label}`}
           onClick={() => onSelect(tone.id)}
-          className={`
-            px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer
-            ${selected === tone.id
-              ? 'bg-primary text-white shadow-md scale-105'
-              : 'bg-white text-text-primary border border-primary-light hover:border-primary hover:bg-primary-bg'
-            }
-          `}
-        >
-          {tone.emoji} {tone.label}
-        </button>
+          color={selected === tone.id ? 'primary' : 'default'}
+          variant={selected === tone.id ? 'filled' : 'outlined'}
+          sx={{
+            fontWeight: 600,
+            fontSize: '0.875rem',
+            py: 2.5,
+            transition: 'all 0.2s',
+            ...(selected === tone.id && {
+              transform: 'scale(1.05)',
+              boxShadow: 2,
+            }),
+          }}
+        />
       ))}
-    </div>
+    </Stack>
   )
 }

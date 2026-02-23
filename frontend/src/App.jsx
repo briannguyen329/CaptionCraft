@@ -1,4 +1,11 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import Alert from '@mui/material/Alert'
 import ImageUploader from './components/ImageUploader'
 import ToneSelector from './components/ToneSelector'
 import CaptionOutput from './components/CaptionOutput'
@@ -85,70 +92,76 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4">
-      <div className="max-w-xl mx-auto">
+    <Box sx={{ minHeight: '100vh', py: 4, px: 2, background: 'linear-gradient(135deg, #fdf6fe 0%, #f8f0fa 50%, #f0e6f6 100%)' }}>
+      <Container maxWidth="sm">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="font-heading text-3xl font-bold text-text-primary">
-            Caption<span className="text-primary">Craft</span>
-          </h1>
-          <p className="text-text-secondary mt-2">
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Typography variant="h3" component="h1">
+            Caption<Typography component="span" variant="h3" color="primary">Craft</Typography>
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
             Upload an image, pick a tone, get the perfect caption.
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
         {/* Main Card */}
-        <div className="bg-surface rounded-xl shadow-lg p-6 flex flex-col gap-5 border border-primary-light/50">
+        <Paper elevation={3} sx={{ p: 3, borderRadius: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
           {/* Upload */}
-          <div>
-            <h2 className="font-heading text-lg font-semibold mb-3">Upload Image</h2>
+          <Box>
+            <Typography variant="h6" component="h2" gutterBottom>
+              Upload Image
+            </Typography>
             <ImageUploader onImageSelect={handleImageSelect} currentPreview={preview} />
-          </div>
+          </Box>
 
           {/* Tone Selector */}
-          <div>
-            <h2 className="font-heading text-lg font-semibold mb-3">Choose Tone</h2>
+          <Box>
+            <Typography variant="h6" component="h2" gutterBottom>
+              Choose Tone
+            </Typography>
             <ToneSelector selected={tone} onSelect={setTone} />
-          </div>
+          </Box>
 
           {/* Actions */}
-          <div className="flex gap-3">
-            <button
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="outlined"
+              fullWidth
               onClick={() => handleImageSelect(null)}
-              className="flex-1 py-3 rounded-lg border border-primary-light text-text-primary font-semibold hover:bg-primary-bg transition-colors cursor-pointer"
+              sx={{ py: 1.5, fontWeight: 600, textTransform: 'none' }}
             >
               Clear
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="contained"
+              fullWidth
               onClick={handleGenerate}
               disabled={!imageFile || isLoading}
-              className="flex-1 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              sx={{ py: 1.5, fontWeight: 600, textTransform: 'none' }}
             >
               {isLoading ? 'Generating...' : 'Generate Caption'}
-            </button>
-          </div>
+            </Button>
+          </Stack>
 
           {/* Error */}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm">
-              {error}
-            </div>
+            <Alert severity="error">{error}</Alert>
           )}
 
           {/* Caption Output */}
           <CaptionOutput caption={caption} tone={tone} isLoading={isLoading} />
-        </div>
+        </Paper>
 
         {/* History */}
-        <div className="mt-6">
+        <Box sx={{ mt: 3 }}>
           <History items={history} onSelect={handleHistorySelect} />
-        </div>
+        </Box>
 
         {/* Footer */}
-        <p className="text-center text-text-secondary text-xs mt-8">
+        <Typography variant="caption" align="center" color="text.secondary" sx={{ mt: 4, display: 'block' }}>
           Built with Claude &mdash; Powered by Anthropic
-        </p>
-      </div>
-    </div>
+        </Typography>
+      </Container>
+    </Box>
   )
 }

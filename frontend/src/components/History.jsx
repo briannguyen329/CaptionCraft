@@ -1,30 +1,52 @@
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import List from '@mui/material/List'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemText from '@mui/material/ListItemText'
+import Avatar from '@mui/material/Avatar'
+import Chip from '@mui/material/Chip'
+
 export default function History({ items, onSelect }) {
   if (items.length === 0) return null
 
   return (
-    <div className="bg-white rounded-xl p-5 border border-primary-light">
-      <h3 className="font-heading font-semibold text-sm text-text-secondary mb-3">
+    <Paper elevation={1} sx={{ p: 2.5, borderRadius: 3 }}>
+      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
         Recent Captions
-      </h3>
-      <div className="flex flex-col gap-2 max-h-[300px] overflow-y-auto">
+      </Typography>
+      <List sx={{ maxHeight: 300, overflow: 'auto', pt: 0.5 }}>
         {items.map((item, i) => (
-          <button
+          <ListItemButton
             key={i}
             onClick={() => onSelect(item)}
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary-bg transition-colors text-left cursor-pointer"
+            sx={{ borderRadius: 2, mb: 0.5 }}
           >
-            <img
-              src={item.preview}
-              alt=""
-              className="w-10 h-10 rounded-md object-cover shrink-0"
+            <ListItemAvatar>
+              <Avatar
+                src={item.preview}
+                variant="rounded"
+                sx={{ width: 40, height: 40 }}
+              />
+            </ListItemAvatar>
+            <ListItemText
+              primary={
+                <Chip
+                  label={item.tone}
+                  size="small"
+                  color="primary"
+                  sx={{ height: 18, fontSize: '0.7rem', textTransform: 'capitalize', fontWeight: 600 }}
+                />
+              }
+              secondary={item.caption}
+              secondaryTypographyProps={{
+                noWrap: true,
+                variant: 'body2',
+              }}
             />
-            <div className="min-w-0 flex-1">
-              <p className="text-xs text-primary font-semibold capitalize">{item.tone}</p>
-              <p className="text-sm text-text-primary truncate">{item.caption}</p>
-            </div>
-          </button>
+          </ListItemButton>
         ))}
-      </div>
-    </div>
+      </List>
+    </Paper>
   )
 }
